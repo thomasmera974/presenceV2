@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SessionService } from './service/session.service';
 
-import { Data } from './type';
+import { Data, DataPrototype } from './type';
 
 
 @Component({
@@ -26,9 +26,9 @@ export class AppComponent {
 
     constructor(private http : HttpClient, private router : Router, private session : SessionService) {}
 
-    public getData() : Data {
+    public getData() : DataPrototype {
 
-        let data : Data = null;
+        let data! : DataPrototype;
 
         let input = null;
 
@@ -36,7 +36,7 @@ export class AppComponent {
 
             input = this.input[index].nativeElement;
 
-            if( data === null ) data = { [input.name] : input.value };
+            if( !data  ) data = { [input.name] : input.value };
             else data[input.name] = input.value;
           
         }
@@ -48,7 +48,7 @@ export class AppComponent {
 
         let url = 'http://localhost/presencev2/login';
 
-        this.http.post(url, JSON.stringify(this.getData()))
+        this.http.get(url, { params : this.getData()})
 
         .subscribe( {
 
@@ -56,7 +56,7 @@ export class AppComponent {
 
                 this.isLogin = true;
 
-                this.session.set(result.id);
+                this.session.set(result);
                 this.router.navigate([`${result.session}`]);
             },
 

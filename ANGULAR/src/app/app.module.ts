@@ -6,24 +6,27 @@ import { AppComponent } from './app.component';
 
 import { HttpClientModule } from '@angular/common/http';
 
-import { StagiaireComponent } from './stagiaire/stagiaire.component';
+
 import { FormateurComponent } from './formateur/formateur.component';
 import { AdminComponent } from './admin/admin.component';
+import { NavComponent } from './nav/nav.component';
+import { StagiaireModule } from './stagiaire/stagiaire.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
 
-    StagiaireComponent,
     FormateurComponent,
-    AdminComponent
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
 
-    HttpClientModule
+    HttpClientModule,
+
+    StagiaireModule
   ],
   providers: [],
   bootstrap: [AppComponent]

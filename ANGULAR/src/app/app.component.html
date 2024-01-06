@@ -3,7 +3,7 @@
   <p>Page de Connexion !</p>
 
   <input #input name="login" type="text" placeholder="adresse mail où telephone.." value="" />
-  <input #input name="password" type="password" />
+  <input #input name="mdp" type="password" />
 
   <button (click)="login()">CONNEXION</button>
 
@@ -12,4 +12,5 @@
 <ng-template #sessionBlock>
 
   <router-outlet></router-outlet>
+
 </ng-template>

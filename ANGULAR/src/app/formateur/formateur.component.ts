@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { SessionService } from '../service/session.service';
+import { Session } from '../type';
 
 @Component({
   selector: 'app-formateur',
@@ -9,10 +10,10 @@ import { SessionService } from '../service/session.service';
 })
 export class FormateurComponent {
 
-    public sessionId : string | null = '';
+    public session! : Session;
 
-    constructor( private session : SessionService ) {
+    constructor( private sessionService : SessionService ) {
 
-        this.sessionId = this.session.get();
+        this.session = this.sessionService.get();
     }
 }

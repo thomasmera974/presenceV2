@@ -1,23 +1,26 @@
 import { Injectable } from '@angular/core';
+import { Data } from '@angular/router';
+
+import { Session } from '../type';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
 
-      public id : string | null = null;
+      public session! : Session;
 
       constructor() { }
 
       // ---
 
-      public set(id : string) : void {
+      public set(res : any) : void {
 
-          this.id = id;
+          this.session = res;
       }
 
-      public get() : string | null {
+      public get() : Session {
 
-          return this.id;
+          return this.session;
       }
 }

@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 
+import { Session } from '../type';
+import { SessionService } from '../service/session.service';
+
 @Component({
   selector: 'app-stagiaire',
   templateUrl: './stagiaire.component.html',
@@ -7,4 +10,14 @@ import { Component } from '@angular/core';
 })
 export class StagiaireComponent {
 
+    public session! : Session;
+
+    constructor( sessionService : SessionService ) {
+
+        this.session = sessionService.get();
+    }
+
+    // ---
+
+    
 }
