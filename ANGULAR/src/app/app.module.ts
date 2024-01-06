@@ -4,13 +4,26 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { HttpClientModule } from '@angular/common/http';
+
+import { StagiaireComponent } from './stagiaire/stagiaire.component';
+import { FormateurComponent } from './formateur/formateur.component';
+import { AdminComponent } from './admin/admin.component';
+
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+
+    StagiaireComponent,
+    FormateurComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
