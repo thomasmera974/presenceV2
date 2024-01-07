@@ -7,7 +7,8 @@ export type Data = DataPrototype | null;
 
 export type Session = {
 
-    name : string,
+    session : string,
+    sessionId : string,
     id : string,
     sectionId : string
 };
@@ -15,7 +16,7 @@ export type Session = {
 export type FichePrototype = {
 
     id : string,
-    date : Date
+    date : string
 }
 
 export type Fiche = Array<FichePrototype>

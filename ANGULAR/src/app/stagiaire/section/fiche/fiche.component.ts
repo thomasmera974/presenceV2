@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Fiche, Session } from 'src/app/type';
 
@@ -12,7 +12,7 @@ import { Fiche, Session } from 'src/app/type';
 export class FicheComponent {
 
     @Input('session') session! : Session;
-    @ViewChild('List') List! : ElementRef;
+    @ViewChild('list') list! : any;
 
     public data! : Fiche;
 
@@ -22,14 +22,19 @@ export class FicheComponent {
 
         let html = [];
 
-        for (let index = 0; index < this.data.length; index++) html.push([this.data[index].date])
+        for (let index = 0; index < this.data.length; index++) html.push([ `<option value="${this.data[index].id}">${this.data[index].date}</option>` ]);
+
+        this.list.nativeElement.innerHTML = html;
     }
 
     getFiche() {
 
         let url = 'http://localhost/presencev2/presence';
 
-        this.http.get(url, { params : { 'id' : this.session.id, 'id_section' : this.session.sectionId } } )
+        // ---
+
+
+        this.http.get(url, { params : { 'id' : this.session.id, 'id_section' : this.session.sectionId, 'id_session' : this.session.sessionId } } )
 
         .subscribe( {
 

@@ -1,6 +1,6 @@
 import { Component, ViewChildren } from '@angular/core';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SessionService } from './service/session.service';
 
@@ -48,7 +48,9 @@ export class AppComponent {
 
         let url = 'http://localhost/presencev2/login';
 
-        this.http.get(url, { params : this.getData()})
+        // ---
+
+        this.http.get(url, { params : this.getData() })
 
         .subscribe( {
 
