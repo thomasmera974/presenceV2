@@ -1,5 +1,13 @@
-<div>
+<form onsubmit="return false">
 
     <p>fiche du jour </p>
-    <select #list></select>
-</div>
+    <select #input #list name="id_fiche"></select>
+
+    <input #input #hour type="time" name="ham" />
+    <input #input #hour type="time" name="hsm" />
+    <input #input #hour type="time" name="haa" />
+    <input #input #hour type="time" name="hsa" />
+
+    <button (click)="sendFiche()">ENVOIE</button>
+    
+</form>

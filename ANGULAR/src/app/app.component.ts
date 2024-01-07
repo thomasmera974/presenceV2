@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SessionService } from './service/session.service';
 
-import { Data, DataPrototype } from './type';
+import { getData } from './type';
 
 
 @Component({
@@ -20,29 +20,12 @@ export class AppComponent {
     // ---
 
     public isLogin : boolean = false;
-    @ViewChildren('input') input!: any;
+    @ViewChildren('input') input! : any;
 
     // ---
 
     constructor(private http : HttpClient, private router : Router, private session : SessionService) {}
 
-    public getData() : DataPrototype {
-
-        let data! : DataPrototype;
-
-        let input = null;
-
-        for (let index = 0; index < this.input.length; index++) {
-
-            input = this.input[index].nativeElement;
-
-            if( !data  ) data = { [input.name] : input.value };
-            else data[input.name] = input.value;
-          
-        }
-
-        return data;
-    }
 
     public login() : void {
 
@@ -50,7 +33,7 @@ export class AppComponent {
 
         // ---
 
-        this.http.get(url, { params : this.getData() })
+        this.http.get(url, { params : getData(this.input) })
 
         .subscribe( {
 
