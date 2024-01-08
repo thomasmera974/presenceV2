@@ -25,7 +25,7 @@ export class FicheComponent {
 
 
     public data! : Fiche;
-    public data_hour! : any;
+    public abs : Array<Array<string>> = [];
 
 
 
@@ -35,7 +35,7 @@ export class FicheComponent {
 
 
 
-    private setHour(i : number) {
+    private setHour(i : number) : void {
         
         let element! : any;
 
@@ -48,19 +48,30 @@ export class FicheComponent {
         }
     }
 
-    private setList() {
+    private setList() : void {
 
         let html = [];
         let i! : number;
+
+        let abs : Array<number> = [];
 
         for (let index = 0; index < this.data.length; index++) {
 
             if( i === undefined ) i = index;
             html.push([ `<option value="${index}">${this.data[index].date}</option>` ]);
+
+            if( typeof this.data[index].abs != 'undefined' ) abs.push(index);
         }
 
         this.list.nativeElement.innerHTML = html;
         this.setHour(i);
+
+        // ---
+
+        for (let index = 0; index < abs.length; index++) {
+
+            this.abs[ abs[index] ] = this.data[index].abs;
+        }
 
         // ---
 
@@ -74,9 +85,9 @@ export class FicheComponent {
 
 
 
-    private getFiche() {
+    private getFiche() : void {
 
-        let url = 'http://localhost/presencev2/presence';
+        let url = 'http://localhost/presencev2-PHP/presence';
 
         // ---
 
@@ -101,7 +112,7 @@ export class FicheComponent {
 
 
 
-    private changeData(index : number, inputData : DataPrototype) {
+    private changeData(index : number, inputData : DataPrototype) : void {
 
         let name! : string;
 
@@ -114,9 +125,9 @@ export class FicheComponent {
         }
     }
 
-    public sendFiche() {
+    public sendFiche() : void {
 
-        let url : string = 'http://localhost/presencev2/presence/';
+        let url : string = 'http://localhost/presencev2-PHP/presence/';
 
         // ---
 
@@ -128,7 +139,21 @@ export class FicheComponent {
         // ---
 
         let request! : any;
-        let body : string = JSON.stringify(Object.assign({ 'id' : this.session.id, 'id_session' : this.session.sessionId }, inputData));
+        let body : string = JSON.stringify(Object.assign({ 'id' : this.session.id, 'id_session' : this.session.sessionId, 'date_jour' : this.data[index].date }, inputData));
+
+        // ---
+
+        let bodyParse! : DataPrototype;
+
+        if( typeof this.abs[index] != 'undefined' ) {
+
+            bodyParse = JSON.parse(body);
+            bodyParse['abs'] = this.abs[index];
+            
+            body = JSON.stringify(bodyParse);
+        }
+
+        // ---
 
         if( typeof this.data[index].hour == 'undefined' ) {
             
@@ -139,7 +164,7 @@ export class FicheComponent {
             
             url = url + this.data[index].id;
 
-            let bodyParse : DataPrototype = JSON.parse(body);
+            bodyParse = JSON.parse(body);
             delete bodyParse['id_fiche'];
             
             request = this.http.patch(url, JSON.stringify(bodyParse));
@@ -163,6 +188,36 @@ export class FicheComponent {
 
         } );
 
+    }
+    
+
+
+
+    public setAbs(type : string) : void {
+
+        let index : number = this.list.nativeElement.value;
+        let find : number;
+
+        if( typeof this.abs[index] == 'undefined' ) {
+
+            this.abs[index] = [];
+            this.abs[index].push( type );
+        }
+
+        else {
+
+            find = this.abs[index].indexOf(type);
+
+            if( find != -1 ) {
+
+                this.abs[index].splice(find, 1);
+                if( !this.abs[index][0] ) this.abs.splice(index, 1);
+            }
+            else {
+
+                this.abs[index].push( type );
+            }
+        }
     }
 
 

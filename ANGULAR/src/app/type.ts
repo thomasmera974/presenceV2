@@ -1,6 +1,6 @@
 export type DataPrototype = {
 
-    [key : string] : string
+    [key : string] : string | string[]
 };
 
 export type Data = DataPrototype | null;
@@ -36,7 +36,8 @@ export type FichePrototype = {
     id : string,
     date : string,
 
-    hour : DataPrototype
+    hour : DataPrototype,
+    abs : Array<string>
 }
 
 export type Fiche = Array<FichePrototype>

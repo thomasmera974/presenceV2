@@ -29,7 +29,7 @@ export class AppComponent {
 
     public login() : void {
 
-        let url = 'http://localhost/presencev2/login';
+        let url = 'http://localhost/presencev2-PHP/login';
 
         // ---
 

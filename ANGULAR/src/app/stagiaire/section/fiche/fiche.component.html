@@ -3,8 +3,13 @@
     <p>fiche du jour </p>
     <select #input #list name="id_fiche"></select>
 
+    <button (click)="setAbs('matin')">Absent ?</button>
+
     <input #input #hour type="time" name="ham" />
     <input #input #hour type="time" name="hsm" />
+
+    <button (click)="setAbs('aprem')">Absent ?</button>
+
     <input #input #hour type="time" name="haa" />
     <input #input #hour type="time" name="hsa" />
 
