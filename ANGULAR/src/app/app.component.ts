@@ -33,7 +33,7 @@ export class AppComponent {
 
         // ---
 
-        this.http.get(url, { params : getData(this.input) })
+        this.http.get(url, { params : getData(this.input, null) })
 
         .subscribe( {
 

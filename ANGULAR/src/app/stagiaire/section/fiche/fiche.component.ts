@@ -128,32 +128,42 @@ export class FicheComponent {
     public sendFiche() : void {
 
         let url : string = 'http://localhost/presencev2-PHP/presence/';
-
-        // ---
-
-        let inputData = getData(this.input);
         let index : number = this.list.nativeElement.value;
 
-        inputData['id_fiche'] = this.data[index].id;
-
         // ---
 
-        let request! : any;
+        let inputData : DataPrototype;
+
+        if( typeof this.abs[index] != 'undefined' ) {
+
+            let block : Array<string> = [];
+
+            if( this.abs[index].indexOf('matin') != -1 ) {
+
+                block.push('ham');
+                block.push('hsm');
+            }
+
+            if( this.abs[index].indexOf('aprem') != -1 ) {
+
+                block.push('haa');
+                block.push('hsa');
+            }
+
+            inputData = Object.assign(getData(this.input, block), { abs : this.abs[index] });
+        }
+
+        else inputData = getData(this.input, null);
+        
+        // ---
+
+        inputData['id_fiche'] = this.data[index].id;
         let body : string = JSON.stringify(Object.assign({ 'id' : this.session.id, 'id_session' : this.session.sessionId, 'date_jour' : this.data[index].date }, inputData));
 
         // ---
 
+        let request! : any;
         let bodyParse! : DataPrototype;
-
-        if( typeof this.abs[index] != 'undefined' ) {
-
-            bodyParse = JSON.parse(body);
-            bodyParse['abs'] = this.abs[index];
-            
-            body = JSON.stringify(bodyParse);
-        }
-
-        // ---
 
         if( typeof this.data[index].hour == 'undefined' ) {
             

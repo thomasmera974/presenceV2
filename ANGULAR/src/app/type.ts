@@ -5,7 +5,7 @@ export type DataPrototype = {
 
 export type Data = DataPrototype | null;
 
-export function getData(list : any) : DataPrototype {
+export function getData(list : any, block : Array<string> | null) : DataPrototype {
 
     let data! : DataPrototype;
 
@@ -15,9 +15,15 @@ export function getData(list : any) : DataPrototype {
 
         input = list[index].nativeElement;
 
+        if( block !== null ) {
+
+            if( block.indexOf(input.name) != -1 ) continue;
+        }
+
+        // ---
+
         if( !data  ) data = { [input.name] : input.value };
         else data[input.name] = input.value;
-      
     }
 
     return data;
